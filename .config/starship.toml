@@ -13,7 +13,7 @@ symbol = "" # keep it minimal to match the video
 [git_state]
 format = "([$state( $progress_current/$progress_total)]($style)) "
 style = "dimmed"
-disabled = false # keep off; status info is in WezTerm bar
+disabled = true # keep off; status info is in WezTerm bar
 
 [character]
 success_symbol = "❯"
