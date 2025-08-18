@@ -103,7 +103,7 @@ return {
   font = wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "SF Mono" }),
   font_size = 14.0,
   enable_tab_bar = true,
-  use_fancy_tab_bar = false,
+  use_fancy_tab_bar = true,
   tab_bar_at_bottom = true,
   window_decorations = "RESIZE",
   window_background_opacity = 0.95,
