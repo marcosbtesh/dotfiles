@@ -146,3 +146,4 @@ alias c='clear'
 
 eval "$(zoxide init --cmd cd zsh)"
 
+export PATH="$HOME/_dev/flutter/bin:$PATH"
