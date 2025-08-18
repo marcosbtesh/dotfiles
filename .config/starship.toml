@@ -1,0 +1,21 @@
+format = "$directory$git_branch$git_state$character"
+
+[directory]
+style = "blue"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = " [$branch]($style)"
+style = "dimmed"
+symbol = "" # keep it minimal to match the video
+
+[git_state]
+format = "([$state( $progress_current/$progress_total)]($style)) "
+style = "dimmed"
+disabled = false # keep off; status info is in WezTerm bar
+
+[character]
+success_symbol = "❯"
+error_symbol = "❯"
+vicmd_symbol = "❮"

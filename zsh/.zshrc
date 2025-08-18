@@ -145,3 +145,4 @@ alias lta3="eza -lTag --level=3 --icons"
 alias c='clear'
 
 eval "$(zoxide init --cmd cd zsh)"
+
