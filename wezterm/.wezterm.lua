@@ -6,15 +6,16 @@ local nf = wezterm.nerdfonts
 -- Cache git results briefly to avoid running git on every frame
 local GIT_CACHE = { path = "", when = 0, out = "" }
 local function git_info(cwd)
-  if not cwd or cwd == "" then return "" end
+  if not cwd or cwd == "" then
+    return ""
+  end
   local now = wezterm.time.now()
   if GIT_CACHE.path == cwd and (now - GIT_CACHE.when) < 1.0 then
     return GIT_CACHE.out
   end
 
   local cmd = string.format(
-    "cd %q && git rev-parse --is-inside-work-tree >/dev/null 2>&1 && " ..
-    "git status --porcelain=2 -b",
+    "cd %q && git rev-parse --is-inside-work-tree >/dev/null 2>&1 && " .. "git status --porcelain=2 -b",
     cwd
   )
   local ok, out, _ = wezterm.run_child_process({ "bash", "-lc", cmd })
@@ -34,12 +35,16 @@ local function git_info(cwd)
       behind = tonumber(line:match("behind (%d+)")) or 0
     else
       -- Porcelain v2: '1 ' or '2 ' entries = tracked changes; '?' = untracked
-      if line:sub(1,1) == "?" then
+      if line:sub(1, 1) == "?" then
         untracked = untracked + 1
-      elseif line:sub(1,1) == "1" or line:sub(1,1) == "2" then
-        local xy = line:sub(3,4)
-        if xy:sub(1,1) ~= "." then staged = staged + 1 end
-        if xy:sub(2,2) ~= "." then changed = changed + 1 end
+      elseif line:sub(1, 1) == "1" or line:sub(1, 1) == "2" then
+        local xy = line:sub(3, 4)
+        if xy:sub(1, 1) ~= "." then
+          staged = staged + 1
+        end
+        if xy:sub(2, 2) ~= "." then
+          changed = changed + 1
+        end
       end
     end
   end
@@ -48,11 +53,21 @@ local function git_info(cwd)
   if branch ~= "" then
     table.insert(parts, nf.fa_code_fork .. " " .. branch)
   end
-  if ahead > 0 then table.insert(parts, "↑" .. ahead) end
-  if behind > 0 then table.insert(parts, "↓" .. behind) end
-  if staged > 0 then table.insert(parts, "●" .. staged) end
-  if changed > 0 then table.insert(parts, "✚" .. changed) end
-  if untracked > 0 then table.insert(parts, "…".. untracked) end
+  if ahead > 0 then
+    table.insert(parts, "↑" .. ahead)
+  end
+  if behind > 0 then
+    table.insert(parts, "↓" .. behind)
+  end
+  if staged > 0 then
+    table.insert(parts, "●" .. staged)
+  end
+  if changed > 0 then
+    table.insert(parts, "✚" .. changed)
+  end
+  if untracked > 0 then
+    table.insert(parts, "…" .. untracked)
+  end
 
   local txt = table.concat(parts, " ")
   GIT_CACHE = { path = cwd, when = now, out = txt }
@@ -77,7 +92,7 @@ wezterm.on("update-status", function(window, pane)
   end
 
   local left = wezterm.format({
-    { Foreground = { Color = pal.ansi[4] } },  -- blue-ish
+    { Foreground = { Color = pal.ansi[4] } }, -- blue-ish
     { Text = " " .. (window:active_workspace() or "") .. " " },
     { Foreground = { Color = pal.foreground } },
     { Text = "  " .. nf.dev_terminal .. " " .. (pane:get_foreground_process_name() or "shell") .. "  " },
@@ -89,7 +104,7 @@ wezterm.on("update-status", function(window, pane)
     { Text = " " .. nf.md_folder .. " " },
     { Foreground = { Color = pal.foreground } },
     { Text = tilde_path(cwd) .. "  " },
-    { Foreground = { Color = pal.ansi[7] } },  -- dim
+    { Foreground = { Color = pal.ansi[7] } }, -- dim
     { Text = git_info(cwd) ~= "" and (" " .. nf.dev_git .. " ") or "" },
     { Foreground = { Color = pal.foreground } },
     { Text = git_info(cwd) },
@@ -108,4 +123,15 @@ return {
   window_decorations = "RESIZE",
   window_background_opacity = 0.95,
   adjust_window_size_when_changing_font_size = false,
+
+  -- keys = {
+  --   {
+  --     key = "E",
+  --     mods = "CTRL|SHIFT",
+  --     action = wezterm.action.SpawnCommandInNewTab({
+  --       cwd = wezterm.home_dir, -- you can swap this for e.g. pane:get_current_working_dir()
+  --       args = { "nvim" },
+  --     }),
+  --   },
+  -- },
 }
