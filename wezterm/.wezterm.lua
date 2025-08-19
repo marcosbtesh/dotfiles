@@ -119,7 +119,7 @@ return {
   font_size = 14.0,
   enable_tab_bar = true,
   use_fancy_tab_bar = true,
-  tab_bar_at_bottom = true,
+  tab_bar_at_bottom = false,
   window_decorations = "RESIZE",
   window_background_opacity = 0.95,
   adjust_window_size_when_changing_font_size = false,
