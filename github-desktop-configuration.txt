@@ -1,0 +1,5 @@
+Path:
+/Users/user/ghd-wezterm-open
+
+Arguments:
+"%REPO_PATH%" "%TARGET_PATH%"
