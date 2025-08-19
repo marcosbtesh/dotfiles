@@ -10,5 +10,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.pack.typescript-all-in-one" },
+  { import = "astrocommunity.motion.nvim-surround" },
   -- import/override with your plugins folder
 }
