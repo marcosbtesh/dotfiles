@@ -15,5 +15,6 @@ return {
   { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.completion.copilot-cmp" },
+  { import = "astrocommunity.colorscheme.vscode-nvim" },
   -- import/override with your plugins folder
 }
