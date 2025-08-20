@@ -18,6 +18,8 @@ return {
   { import = "astrocommunity.colorscheme.vscode-nvim" },
   { import = "astrocommunity.scrolling.mini-animate" },
   { import = "astrocommunity.utility.hover-nvim" },
+  -- { import = "astrocommunity.indent.indent-rainbowline" },
+  -- { import = "astrocommunity.indent.mini-indentscope" },
 
   -- import/override with your plugins folder
 }
