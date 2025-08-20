@@ -16,5 +16,7 @@ return {
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.colorscheme.vscode-nvim" },
+  { import = "astrocommunity.scrolling.mini-animate" },
+
   -- import/override with your plugins folder
 }
