@@ -144,6 +144,7 @@ alias lta3="eza -lTag --level=3 --icons"
 
 alias c='clear'
 alias nv='nvim .'
+alias x='exit';
 eval "$(zoxide init --cmd cd zsh)"
 
 export PATH="$HOME/_dev/flutter/bin:$PATH"
