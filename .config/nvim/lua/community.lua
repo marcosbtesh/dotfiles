@@ -14,6 +14,7 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.dart" },
+  { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.colorscheme.vscode-nvim" },
