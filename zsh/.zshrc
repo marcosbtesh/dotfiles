@@ -145,6 +145,13 @@ alias lta3="eza -lTag --level=3 --icons"
 alias c='clear'
 alias nv='nvim .'
 alias x='exit';
-eval "$(zoxide init --cmd cd zsh)"
 
 export PATH="$HOME/_dev/flutter/bin:$PATH"
+export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+
+eval "$(zoxide init --cmd cd zsh)"
+
