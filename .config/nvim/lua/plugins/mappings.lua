@@ -5,10 +5,15 @@ return {
     opts = {
       mappings = {
         n = {
+          -- Move line up/down (like VS Code Alt+Up/Alt+Down)
+          ["<A-Up>"] = { ":m .-2<CR>==", desc = "Move line up" },
+          ["<A-Down>"] = { ":m .+1<CR>==", desc = "Move line down" },
+          ["<A-k>"] = { ":m .-2<CR>==", desc = "Move line up (fallback)" },
+          ["<A-j>"] = { ":m .+1<CR>==", desc = "Move line down (fallback)" },
+
+          -- Copy line up/down (Shift+Alt)
           ["<A-S-Up>"] = { ":t.-1<CR>==", desc = "Copy line up" },
           ["<A-S-Down>"] = { ":t.<CR>==", desc = "Copy line down" },
-          ["<A-k>"] = { ":t.-1<CR>==", desc = "Copy line up (fallback)" },
-          ["<A-j>"] = { ":t.<CR>==", desc = "Copy line down (fallback)" },
 
           -- delete/change without yanking
           ["d"] = { '"_d', desc = "Delete without yanking" },
@@ -25,17 +30,22 @@ return {
           ["yD"] = { "D", desc = "Delete to end of line with yank" },
           ["yC"] = { "C", desc = "Change to end of line with yank" },
           ["ys"] = { "s", desc = "Substitute char with yank" },
-          
+
           -- undo / redo remaps
-          ["U"] = { "u", desc = "Undo last change" }, -- Capital U as undo
-          ["<Leader>r"] = { "<C-r>", desc = "Redo last undo" }, -- Redo without Ctrl-r conflict
+          ["U"] = { "u", desc = "Undo last change" },
+          ["<Leader>r"] = { "<C-r>", desc = "Redo last undo" },
         },
 
         v = {
+          -- Move selected block up/down
+          ["<A-Up>"] = { ":m '<-2<CR>gv=gv", desc = "Move selection up" },
+          ["<A-Down>"] = { ":m '>+1<CR>gv=gv", desc = "Move selection down" },
+          ["<A-k>"] = { ":m '<-2<CR>gv=gv", desc = "Move selection up (fallback)" },
+          ["<A-j>"] = { ":m '>+1<CR>gv=gv", desc = "Move selection down (fallback)" },
+
+          -- Copy selection up/down (Shift+Alt)
           ["<A-S-Up>"] = { ":t'<-1<CR>gv", desc = "Copy selection up" },
           ["<A-S-Down>"] = { ":t'>+1<CR>gv", desc = "Copy selection down" },
-          ["<A-k>"] = { ":t'<-1<CR>gv", desc = "Copy selection up (fallback)" },
-          ["<A-j>"] = { ":t'>+1<CR>gv", desc = "Copy selection down (fallback)" },
 
           -- delete/change without yanking
           ["d"] = { '"_d', desc = "Delete without yanking" },
