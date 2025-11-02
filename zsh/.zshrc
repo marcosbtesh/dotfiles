@@ -155,3 +155,4 @@ export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools
 
 eval "$(zoxide init --cmd cd zsh)"
 
+export PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig
