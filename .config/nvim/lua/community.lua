@@ -17,7 +17,7 @@ return {
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.motion.nvim-surround" },
-  { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.colorscheme.vscode-nvim" },
   { import = "astrocommunity.colorscheme.rose-pine" },
