@@ -31,4 +31,6 @@ return {
   -- { import = "astrocommunity.indent.mini-indentscope" },
 
   -- import/override with your plugins folder
+  --
+  { import = "astrocommunity.media.cord-nvim" },
 }
