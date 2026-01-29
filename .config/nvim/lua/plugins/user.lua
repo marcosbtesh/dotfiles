@@ -16,6 +16,12 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
+   "trunk-io/neovim-trunk",
+  {
+    enabled = true,
+    lazy = false,
+		dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
+  },
 
   -- == Examples of Overriding Plugins ==
 
