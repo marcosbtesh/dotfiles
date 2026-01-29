@@ -145,12 +145,13 @@ alias lta3="eza -lTag --level=3 --icons"
 alias c='clear'
 alias nv='nvim .'
 alias x='exit'
-alias rss='newsboat'
+alias lg='lazygit'
 
 # Command line services
 alias weather='curl wttr.in'
 alias cheat='~/scripts/cht.sh'
 alias news='~/scripts/news.sh'
+alias rss='newsboat'
 
 export PATH="$HOME/_dev/flutter/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
