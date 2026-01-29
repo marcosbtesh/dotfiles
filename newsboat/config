@@ -31,7 +31,7 @@ browser "w3m %u"
 
 # This switches the browser to browsh, opens it, and switches back to w3m
 
-macro b set browser "browsh --url %u" ; open-in-browser ; set browser "w3m %u"
+macro b set browser "browsh %u" ; open-in-browser ; set browser "w3m %u"
 
 # --- Visuals ---
 
