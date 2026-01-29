@@ -1,0 +1,38 @@
+# --- Navigation ---
+
+bind-key j down
+bind-key k up
+bind-key h quit
+bind-key l open
+bind-key g home
+bind-key G end
+
+# --- General Settings ---
+
+refresh-on-startup yes
+auto-reload yes
+reload-time 120 # Reloads every 2 hours in the background
+
+# --- Browser Integration ---
+
+# This passes the URL directly into browsh
+
+# set-browser "browsh --url %u"
+
+# Default to w3m (blazing fast text)
+
+# --- Browser Integration ---
+
+# We explicitly add the Homebrew path to the command execution
+
+set-browser "export PATH=$PATH:/opt/homebrew/bin; w3m %u"
+
+# Macro: Press ',b' to open the article in browsh
+
+macro b set browser "export PATH=$PATH:/opt/homebrew/bin; browsh --url %u" ; open-in-browser ; set browser "export PATH=$PATH:/opt/homebrew/bin; w3m %u"
+
+# --- Visuals ---
+
+color listfocus white blue bold
+color info yellow black
+highlight article "^Feed:.\*" color cyan default
