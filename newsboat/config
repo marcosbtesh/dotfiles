@@ -23,16 +23,20 @@ reload-time 120 # Reloads every 2 hours in the background
 
 # --- Browser Integration ---
 
-# We explicitly add the Homebrew path to the command execution
+# Default to w3m (using the standard command)
 
-set-browser "export PATH=$PATH:/opt/homebrew/bin; w3m %u"
+browser "w3m %u"
 
 # Macro: Press ',b' to open the article in browsh
 
-macro b set browser "export PATH=$PATH:/opt/homebrew/bin; browsh --url %u" ; open-in-browser ; set browser "export PATH=$PATH:/opt/homebrew/bin; w3m %u"
+# This switches the browser to browsh, opens it, and switches back to w3m
+
+macro b set browser "browsh --url %u" ; open-in-browser ; set browser "w3m %u"
 
 # --- Visuals ---
 
-color listfocus white blue bold
-color info yellow black
-highlight article "^Feed:.\*" color cyan default
+# color listfocus white blue bold
+
+# color info yellow black
+
+# highlight article "^Feed:.\*" color cyan default
