@@ -1,14 +1,18 @@
-# --- TECH & DEV ---
-https://news.ycombinator.com/rss hacker-news tech
-https://lobste.rs/rss lobsters dev
-https://www.theverge.com/rss/index.xml news tech
-https://github.com/blog.atom github dev
-https://archlinux.org/feeds/news/ arch linux
-
-# --- TERMINAL & LINUX ---
-https://itsfoss.com/feed/ linux foss
-https://www.omglinux.com/feed/ linux desktop
-
-# --- YOUTUBE (Yes, it works!) ---
-# Formula: https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
-https://www.youtube.com/feeds/videos.xml?channel_id=UCv67rO_T_v_r3D09u838Y3Q "~ThePrimeagen" youtube dev
+https://news.ycombinator.com/rss "hacker-news" "tech"
+https://lobste.rs/rss "lobsters" "dev"
+https://www.theverge.com/rss/index.xml "news" "tech"
+https://github.com/blog.atom "github" "dev"
+https://archlinux.org/feeds/news/ "arch" "linux"
+https://itsfoss.com/feed/ "linux" "foss"
+https://www.omglinux.com/feed/ "linux" "desktop"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCv67rO_T_v_r3D09u838Y3Q "~ThePrimeagen" "youtube" "dev"
+https://www.huffpost.com/section/world-news/feed "~World News - Breaking News, Top Stories" "United States"
+https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml "~NYT > Top Stories" "United States"
+http://feeds.foxnews.com/foxnews/latest "~FOX News" "United States"
+http://feeds.washingtonpost.com/rss/world "~World" "United States"
+https://feeds.a.dj.com/rss/RSSWorldNews.xml "~WSJ.com: World News" "United States"
+https://www.latimes.com/world-nation/rss2.0.xml "~World & Nation" "United States"
+http://rss.cnn.com/rss/edition.rss "~CNN.com - RSS Channel - App International Edition" "United States"
+https://news.yahoo.com/rss/mostviewed "~Yahoo News - Latest News & Headlines" "United States"
+https://www.cnbc.com/id/100003114/device/rss/rss.html "~US Top News and Analysis" "United States"
+https://rss.politico.com/playbook.xml "~Playbook" "United States"
