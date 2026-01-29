@@ -1,8 +1,14 @@
-local Config = require("utils.class.config"):new()
+local wezterm = require("wezterm")
+local config = require("config")
+require("events")
 
-require "events.update-status"
-require "events.format-tab-title"
-require "events.new-tab-button-click"
-require "events.augment-command-palette"
+-- Apply color scheme based on the WEZTERM_THEME environment variable
+local themes = {
+	nord = "Nord (Gogh)",
+	onedark = "One Dark (Gogh)",
+}
+local success, stdout, stderr = wezterm.run_child_process({ os.getenv("SHELL"), "-c", "printenv WEZTERM_THEME" })
+local selected_theme = stdout:gsub("%s+", "") -- Remove all whitespace characters including newline
+config.color_scheme = themes[selected_theme]
 
-return Config:add("config"):add "mappings"
+return config

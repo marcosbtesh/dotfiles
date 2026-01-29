@@ -1,3 +1,4 @@
 .DS_Store
 .config/nvim/lazy-lock.json
 .config/flutter/settings
+_dev

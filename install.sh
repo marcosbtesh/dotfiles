@@ -7,14 +7,19 @@ brew install --cask wezterm
 
 mkdir ~/.config/wezterm
 mkdir ~/.newsboat
+mkdir ~/.config/tmux 
+mkdir ~/.config/nvim 
+
 mkdir ~/scripts
 find ./scripts -name "*.sh" -exec chmod +x {} +
 
 stow -t ~ zsh
-stow -t ~/.config .config
+stow -t ~/.config/nvim nvim
 stow -t ~/.config/wezterm wezterm
 stow -t ~/.newsboat newsboat
 stow -t ~/scripts scripts
+stow -t ~/.config/tmux tmux
+
 
 
 source ~/.zshrc
