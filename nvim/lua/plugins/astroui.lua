@@ -11,6 +11,7 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- Enable transparency for the main editor windows
+    colorscheme = "vscode",
     highlights = {
       -- use a function override to set highlights for all themes
       global = function(highlights)
