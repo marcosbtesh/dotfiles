@@ -13,7 +13,7 @@ config.window_decorations = "RESIZE"
 config.check_for_updates = true
 config.use_fancy_tab_bar = true
 config.tab_bar_at_bottom = true
-config.font_size = 12.5
+config.font_size = 13.5
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 config.enable_tab_bar = true
 config.window_padding = {
