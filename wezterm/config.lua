@@ -10,12 +10,12 @@ config.automatically_reload_config = true
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_decorations = "RESIZE"
-config.check_for_updates = false
-config.use_fancy_tab_bar = false
-config.tab_bar_at_bottom = false
+config.check_for_updates = true
+config.use_fancy_tab_bar = true
+config.tab_bar_at_bottom = true
 config.font_size = 12.5
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
-config.enable_tab_bar = false
+config.enable_tab_bar = true
 config.window_padding = {
 	left = 7,
 	right = 0,
@@ -24,24 +24,24 @@ config.window_padding = {
 }
 
 config.background = {
-  {
-    source = {
-      File = wezterm.home_dir .. "/.config/wezterm/dark-desert.jpg",
-    },
-    hsb = {
-      hue = 1.0,
-      saturation = 1.02,
-      brightness = 0.25,
-    },
-  },
-  {
-    source = {
-      Color = "#282c35",
-    },
-    width = "100%",
-    height = "100%",
-    opacity = 0.3,
-  },
+	{
+		source = {
+			File = wezterm.home_dir .. "/.config/wezterm/dark-desert.jpg",
+		},
+		hsb = {
+			hue = 1.0,
+			saturation = 1.02,
+			brightness = 0.25,
+		},
+	},
+	{
+		source = {
+			Color = "#282c35",
+		},
+		width = "100%",
+		height = "100%",
+		opacity = 0.3,
+	},
 }
 config.window_background_opacity = 0.3
 config.macos_window_background_blur = 20
