@@ -1,0 +1,14 @@
+# --- TECH & DEV ---
+https://news.ycombinator.com/rss hacker-news tech
+https://lobste.rs/rss lobsters dev
+https://www.theverge.com/rss/index.xml news tech
+https://github.com/blog.atom github dev
+https://archlinux.org/feeds/news/ arch linux
+
+# --- TERMINAL & LINUX ---
+https://itsfoss.com/feed/ linux foss
+https://www.omglinux.com/feed/ linux desktop
+
+# --- YOUTUBE (Yes, it works!) ---
+# Formula: https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
+https://www.youtube.com/feeds/videos.xml?channel_id=UCv67rO_T_v_r3D09u838Y3Q "~ThePrimeagen" youtube dev

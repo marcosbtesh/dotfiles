@@ -17,9 +17,12 @@ return {
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.motion.nvim-surround" },
-  { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.colorscheme.vscode-nvim" },
+  { import = "astrocommunity.colorscheme.rose-pine" },
+  { import = "astrocommunity.colorscheme.poimandres-nvim" },
+  { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
   { import = "astrocommunity.scrolling.mini-animate" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.git.git-blame-nvim" },
@@ -28,4 +31,6 @@ return {
   -- { import = "astrocommunity.indent.mini-indentscope" },
 
   -- import/override with your plugins folder
+  --
+  { import = "astrocommunity.media.cord-nvim" },
 }
