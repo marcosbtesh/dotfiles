@@ -148,7 +148,7 @@ alias x='exit'
 alias rss='newsboat'
 
 # Command line services
-alias wthr='curl wttr.in'
+alias weather='curl wttr.in'
 alias cheat='~/scripts/cht.sh'
 alias news='~/scripts/news.sh'
 
