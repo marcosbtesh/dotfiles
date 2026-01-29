@@ -1,6 +1,8 @@
 set -e
 
-brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-syntax-highlighting eza tmuxp ripgrep
+brew tap browsh-org/homebrew-browsh
+brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-syntax-highlighting eza tmuxp ripgrep w3m browsh
+
 brew install --cask wezterm
 
 mkdir ~/.config/wezterm
