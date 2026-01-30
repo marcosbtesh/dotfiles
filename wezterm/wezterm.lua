@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
 local config = require("config")
 require("events")
-
+-- Add this line to bypass the Wayland Explicit Sync crash
+config.enable_wayland = false
 -- require("events.update-status")
 -- Apply color scheme based on the WEZTERM_THEME environment variable
 local themes = {
