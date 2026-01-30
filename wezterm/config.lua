@@ -40,10 +40,10 @@ config.background = {
 		},
 		width = "100%",
 		height = "100%",
-		opacity = 0.3,
+		opacity = 0,
 	},
 }
-config.window_background_opacity = 0.3
+config.window_background_opacity = 0
 config.macos_window_background_blur = 20
 config.keys = {
 	{ key = "Enter", mods = "CTRL", action = wezterm.action({ SendString = "\x1b[13;5u" }) },
