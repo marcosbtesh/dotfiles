@@ -61,7 +61,7 @@ return {
           ["yx"] = { "x", desc = "Delete char with yank" },
           ["yD"] = { "D", desc = "Delete to end of line with yank" },
           ["yC"] = { "C", desc = "Change to end of line with yank" },
-          ["ys"] = { "s", desc = "Substitute char with yank" },
+          -- ["ys"] = { "s", desc = "Substitute char with yank" },
         },
       },
     },
