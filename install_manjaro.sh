@@ -65,7 +65,7 @@ fi
 # 7. Stow Configurations
 # We skip 'zsh' since we are generating a .bashrc below
 echo "Stowing dotfiles..."
-stow -t ~ scripts
+stow -t ~/scripts scripts
 stow -t ~/.config/nvim nvim
 stow -t ~/.config/wezterm wezterm
 stow -t ~/.newsboat newsboat
