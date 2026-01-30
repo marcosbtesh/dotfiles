@@ -166,3 +166,12 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Start SSH Agent automatically
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-info
+fi
+if [ -f ~/.ssh-agent-info ]; then
+    source ~/.ssh-agent-info > /dev/null
+    ssh-add ~/.ssh/shared_across_both_manjaros 2>/dev/null
+fi
