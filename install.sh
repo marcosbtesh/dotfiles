@@ -5,6 +5,11 @@ brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-sy
 
 brew install --cask wezterm
 
+brew install aerc
+
+brew tap d99kris/nchat
+brew install nchat
+
 mkdir ~/.config/wezterm
 mkdir ~/.newsboat
 mkdir ~/.config/tmux 
