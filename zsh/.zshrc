@@ -153,6 +153,10 @@ alias cheat='~/scripts/cht.sh'
 alias news='~/scripts/news.sh'
 alias rss='newsboat'
 
+
+# PHP CONFIGURATION
+alias php74='/opt/homebrew/opt/php@7.4/bin/php'
+
 export PATH="$HOME/_dev/flutter/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 
