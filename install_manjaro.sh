@@ -85,7 +85,7 @@ if [ -d "$HOME/.gem/ruby" ]; then
     export PATH="$(ls -d $HOME/.gem/ruby/*/bin | tail -n1):$PATH"
 fi
 
-export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_HOME=$HOME/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 export PATH="$HOME/.local/bin:$PATH"
