@@ -16,11 +16,11 @@ return {
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
   },
-   "trunk-io/neovim-trunk",
+  "trunk-io/neovim-trunk",
   {
     enabled = true,
     lazy = false,
-		dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
 
   -- == Examples of Overriding Plugins ==
@@ -91,5 +91,12 @@ return {
         Rule("a", "a", "-vim")
       )
     end,
+  },
+
+  -- My Plugins
+
+  {
+    "Aietes/esp32.nvim",
+    enabled = true,
   },
 }
