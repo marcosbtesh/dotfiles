@@ -137,6 +137,8 @@ alias cheat='~/scripts/cht.sh'
 alias news='~/scripts/news.sh'
 alias rss='newsboat'
 
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+
 EOF
 
 echo "Setup Complete! Restart your terminal or run 'source ~/.bashrc'"
