@@ -180,8 +180,8 @@ if [ -f ~/.ssh-agent-info ]; then
     ssh-add ~/.ssh/shared_across_both_manjaros 2>/dev/null
 fi
 
-# OpenClaw Completion
-source "/Users/marcos/.openclaw/completions/openclaw.zsh"
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+# # OpenClaw Completion
+# source "/Users/marcos/.openclaw/completions/openclaw.zsh"
+# export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
