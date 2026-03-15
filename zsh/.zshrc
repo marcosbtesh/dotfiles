@@ -186,4 +186,4 @@ fi
 
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
-export AERC_CONFIG="$HOME/.config/aerc"
+export AERC_CONFIG_HOME="$HOME/.config/aerc"
