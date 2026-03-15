@@ -23,5 +23,15 @@ if not pcall(require, "lazy") then
   vim.cmd.quit()
 end
 
+-- vim.api.nvim_create_user_command(
+--   "FormatProject",
+--   function()
+--     require("conform").format {
+--       formatters = { "php_cs_fixer" },
+--       lsp_fallback = true,
+--     }
+--   end,
+--   {}
+-- )
 require "lazy_setup"
 require "polish"

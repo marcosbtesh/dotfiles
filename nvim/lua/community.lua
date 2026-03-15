@@ -12,6 +12,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.dart" },
   { import = "astrocommunity.pack.php" },
