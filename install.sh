@@ -2,7 +2,7 @@ set -e
 
 brew tap browsh-org/homebrew-browsh
 brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-syntax-highlighting eza tmuxp ripgrep w3m browsh newsboat aerc calcurse
-brew install ltex-ls
+brew install ltex-ls pinentry-mac git-crypt
 # Yazi
 brew install yazi ffmpeg-full sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick-full font-symbols-only-nerd-font
 
