@@ -185,3 +185,5 @@ fi
 # export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
+
+export AERC_CONFIG="$HOME/.config/aerc"

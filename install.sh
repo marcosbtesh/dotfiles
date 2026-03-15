@@ -9,6 +9,7 @@ brew tap d99kris/nchat
 brew install nchat
 
 mkdir ~/.config/wezterm
+mkdir ~/.config/aerc
 mkdir ~/.newsboat
 mkdir ~/.config/tmux 
 mkdir ~/.config/nvim 
@@ -18,6 +19,7 @@ find ./scripts -name "*.sh" -exec chmod +x {} +
 
 stow -t ~ zsh
 stow -t ~/.config/nvim nvim
+stow -t ~/.config/aerc aerc
 stow -t ~/.config/wezterm wezterm
 stow -t ~/.newsboat newsboat
 stow -t ~/scripts scripts
