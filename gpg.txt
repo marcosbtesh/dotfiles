@@ -1,0 +1,5 @@
+git clone your-dotfiles-repo
+cd dotfiles
+gpg --import gpg-private.asc  # import your key first
+git-crypt unlock               # decrypts all protected files
+stow -t ~/.config/aerc aerc   # then stow as normal
