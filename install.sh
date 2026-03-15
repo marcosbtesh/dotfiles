@@ -1,11 +1,9 @@
 set -e
 
 brew tap browsh-org/homebrew-browsh
-brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-syntax-highlighting eza tmuxp ripgrep w3m browsh newsboat
+brew install nvim tmux gnupg stow fzf zoxide starship zsh-autosuggestions zsh-syntax-highlighting eza tmuxp ripgrep w3m browsh newsboat aerc
 
 brew install --cask wezterm
-
-brew install aerc
 
 brew tap d99kris/nchat
 brew install nchat
