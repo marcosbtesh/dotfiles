@@ -3,4 +3,4 @@
 .config/flutter/settings
 _dev
 nvim/lazy-lock.json
-aerc/accounts.conf
+# aerc/accounts.conf
