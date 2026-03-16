@@ -112,7 +112,17 @@ elif [[ "$OS" == "manjaro" ]]; then
         yazi \
         nchat \
         pinentry
+    # Install Oh My Zsh if missing
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        echo "Installing Oh My Zsh..."
+        RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
 
+    # Switch default shell to zsh
+    if [ "$SHELL" != "$(which zsh)" ]; then
+        echo "Switching default shell to zsh..."
+        chsh -s "$(which zsh)"
+    fi
     # GPG pinentry for terminal
     mkdir -p ~/.gnupg
     echo "pinentry-program /usr/bin/pinentry-curses" > ~/.gnupg/gpg-agent.conf
@@ -123,6 +133,7 @@ elif [[ "$OS" == "manjaro" ]]; then
     mkdir -p ~/.config/aerc
     mkdir -p ~/.newsboat
     mkdir -p ~/.config/tmux
+    mkdir -p ~/.config/yazi
     mkdir -p ~/.config/nvim
     mkdir -p ~/scripts
     mkdir -p ~/.nvm
@@ -141,6 +152,7 @@ elif [[ "$OS" == "manjaro" ]]; then
     stow -t ~/.newsboat newsboat
     stow -t ~/scripts scripts
     stow -t ~/.config/tmux tmux
+    stow -t ~/.config/yazi yazi
 
     # Unlock git-crypt
     if command -v git-crypt &> /dev/null; then
