@@ -1,0 +1,14 @@
+[[mgr.prepend_keymap]]
+on  = "q"
+run = "plugin confirm-quit"
+desc = "Confirm on quit if multiple tabs"
+
+[[mgr.prepend_keymap]]
+on  = "<C-m>"
+run = "shell --block -- email -f %s"
+desc = "Email using aerc"
+
+[[mgr.prepend_keymap]]
+on   = [ "t", "t" ]
+run  = "plugin smart-tab"
+desc = "Create a tab and enter the hovered directory"

@@ -46,6 +46,18 @@ config.background = {
 config.window_background_opacity = 0
 config.macos_window_background_blur = 20
 config.keys = {
+	-- Prompt before closing the current tab
+	{
+		key = "w",
+		mods = "CMD", -- Or 'CTRL' on Windows/Linux
+		action = wezterm.action.CloseCurrentTab({ confirm = true }),
+	},
+	-- Prompt before closing the current pane
+	{
+		key = "q",
+		mods = "CMD", -- Or 'CTRL' on Windows/Linux
+		action = wezterm.action.CloseCurrentPane({ confirm = true }),
+	},
 	{ key = "Enter", mods = "CTRL", action = wezterm.action({ SendString = "\x1b[13;5u" }) },
 	{ key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b[13;2u" }) },
 }

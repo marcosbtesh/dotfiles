@@ -52,6 +52,7 @@ if [[ "$OS" == "macos" ]]; then
     mkdir -p ~/.config/tmux
     mkdir -p ~/.config/nvim
     mkdir -p ~/scripts
+    mkdir -p ~/.config/yazi
 
     # Fix script permissions
     find ./scripts -name "*.sh" -exec chmod +x {} +
@@ -65,6 +66,7 @@ if [[ "$OS" == "macos" ]]; then
     stow -t ~/.newsboat newsboat
     stow -t ~/scripts scripts
     stow -t ~/.config/tmux tmux
+    stow -t ~/.config/yazi yazi
 
     # Unlock git-crypt (requires GPG key to be imported first)
     if command -v git-crypt &> /dev/null; then
