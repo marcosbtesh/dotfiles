@@ -34,7 +34,7 @@ if [[ "$OS" == "macos" ]]; then
         eza tmuxp ripgrep w3m browsh newsboat aerc \
         calcurse ltex-ls pinentry-mac git-crypt \
         lazygit yazi ffmpeg-full sevenzip jq poppler \
-        fd resvg imagemagick-full nchat caddy cloudflared
+        fd resvg imagemagick-full nchat caddy cloudflared yt-dlp
 
     brew install --cask wezterm
     brew install --cask font-symbols-only-nerd-font
