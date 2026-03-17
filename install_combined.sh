@@ -34,7 +34,7 @@ if [[ "$OS" == "macos" ]]; then
         eza tmuxp ripgrep w3m browsh newsboat aerc \
         calcurse ltex-ls pinentry-mac git-crypt \
         lazygit yazi ffmpeg-full sevenzip jq poppler \
-        fd resvg imagemagick-full nchat caddy cloudflared yt-dlp
+        fd resvg imagemagick-full nchat caddy cloudflared yt-dlp pandoc
 
     brew install --cask wezterm
     brew install --cask font-symbols-only-nerd-font
@@ -103,7 +103,7 @@ elif [[ "$OS" == "manjaro" ]]; then
         wezterm nvm lazygit git-crypt \
         calcurse jq fd imagemagick \
         zsh zsh-autosuggestions zsh-syntax-highlighting \
-        aerc caddy cloudflared
+        aerc caddy cloudflared yt-dlp pandoc
 
     echo "Installing AUR packages..."
     yay -S --needed --noconfirm \
