@@ -2,5 +2,7 @@
 * text=auto
 
 aerc/accounts.conf filter=git-crypt diff=git-crypt
+# aerc/signature-work filter=git-crypt diff=git-crypt
+aerc/marcos.html filter=git-crypt diff=git-crypt
 .gnupg/private-keys-v1.d/** filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
