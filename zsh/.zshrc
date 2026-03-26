@@ -196,6 +196,18 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-export GPG_TTY=$(tty)
+#export GPG_TTY=$(tty)
 
 export MANPAGER='nvim +Man!'
+
+# GPG and SSH YubiKey Integration
+export GPG_TTY=$(tty)
+
+# Point SSH to the GPG Agent socket
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+
+# Launch GPG Agent if not running
+gpgconf --launch gpg-agent
