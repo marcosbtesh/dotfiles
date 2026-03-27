@@ -4,3 +4,4 @@
 aerc/accounts.conf filter=git-crypt diff=git-crypt
 .gnupg/private-keys-v1.d/** filter=git-crypt diff=git-crypt
 secrets/** filter=git-crypt diff=git-crypt
+ssh/** filter=git-crypt diff=git-crypt
