@@ -150,4 +150,15 @@ wezterm.on("update-status", function(window, pane)
 
   -- Set the Status
   window:set_right_status(wezterm.format(elements))
+
+  -- Left status: workspace name
+  local workspace = window:active_workspace()
+  window:set_left_status(wezterm.format({
+    { Background = { Color = colors.cpu_bg } },
+    { Foreground = { Color = colors.fg } },
+    { Text = "  " .. workspace .. " " },
+    { Background = { Color = "none" } },
+    { Foreground = { Color = colors.cpu_bg } },
+    { Text = "" },
+  }))
 end)

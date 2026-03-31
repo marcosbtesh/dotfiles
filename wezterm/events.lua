@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
+require("events.format-tab-title")
 
 -- wezterm.on("gui-startup", function()
 --   local _, _, window = mux.spawn_window({})

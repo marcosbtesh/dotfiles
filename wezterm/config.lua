@@ -11,16 +11,23 @@ config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_decorations = "RESIZE"
 config.check_for_updates = true
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.font_size = 13.5
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 config.enable_tab_bar = true
 config.window_padding = {
 	left = 7,
-	right = 0,
+	right = 7,
 	top = 2,
 	bottom = 0,
+}
+config.tab_max_width = 40
+config.scrollback_lines = 10000
+config.inactive_pane_hsb = {
+	hue = 1.0,
+	saturation = 0.6,
+	brightness = 0.6,
 }
 
 config.background = {
@@ -94,4 +101,32 @@ config.hyperlink_rules = {
 		highlight = 1,
 	},
 }
+-- Tab bar colors (Tokyo Night palette, matching the status bar)
+config.colors = {
+	tab_bar = {
+		background = "#1f2335",
+		active_tab = {
+			bg_color = "#7aa2f7",
+			fg_color = "#15161e",
+			intensity = "Bold",
+		},
+		inactive_tab = {
+			bg_color = "#24283b",
+			fg_color = "#565f89",
+		},
+		inactive_tab_hover = {
+			bg_color = "#3d59a1",
+			fg_color = "#c0caf5",
+		},
+		new_tab = {
+			bg_color = "#1f2335",
+			fg_color = "#565f89",
+		},
+		new_tab_hover = {
+			bg_color = "#3d59a1",
+			fg_color = "#c0caf5",
+		},
+	},
+}
+
 return config

@@ -1,6 +1,5 @@
-.DS_Store
+**/.DS_Store
 .config/nvim/lazy-lock.json
 .config/flutter/settings
 _dev
 nvim/lazy-lock.json
-# aerc/accounts.conf
