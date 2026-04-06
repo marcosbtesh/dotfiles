@@ -211,3 +211,5 @@ fi
 
 # Launch GPG Agent if not running
 gpgconf --launch gpg-agent
+
+export PATH="$HOME/.composer/vendor/bin:$PATH"
