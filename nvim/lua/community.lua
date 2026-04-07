@@ -29,6 +29,8 @@ return {
   { import = "astrocommunity.comment.ts-comments-nvim" },
   -- { import = "astrocommunity.indent.indent-rainbowline" },
   -- { import = "astrocommunity.indent.mini-indentscope" },
+  -- { import = "astrocommunity.file-explorer.fyler-nvim" },
+  { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
 
   -- import/override with your plugins folder
   --
