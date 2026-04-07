@@ -3,3 +3,4 @@
 .config/flutter/settings
 _dev
 nvim/lazy-lock.json
+astronvim_v6/lazy-lock.json
