@@ -31,6 +31,7 @@ return {
   { import = "astrocommunity.scrolling.mini-animate" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.git.git-blame-nvim" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.comment.ts-comments-nvim" },
   -- { import = "astrocommunity.indent.indent-rainbowline" },
   -- { import = "astrocommunity.indent.mini-indentscope" },
