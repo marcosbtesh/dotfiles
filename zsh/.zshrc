@@ -213,3 +213,7 @@ fi
 gpgconf --launch gpg-agent
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

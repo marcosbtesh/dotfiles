@@ -5,6 +5,11 @@
 -- This guarantees that the specs are processed before any user plugins.
 
 ---@type LazySpec
+-- return {
+--   "AstroNvim/astrocommunity",
+--   { import = "astrocommunity.pack.lua" },
+--   -- import/override with your plugins folder
+-- }
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.motion.nvim-surround" },
@@ -19,14 +24,16 @@ return {
   -- { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
-  { import = "astrocommunity.colorscheme.vscode-nvim" },
-  { import = "astrocommunity.colorscheme.rose-pine" },
-  { import = "astrocommunity.colorscheme.poimandres-nvim" },
-  { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
+  -- { import = "astrocommunity.colorscheme.vscode-nvim" },
+  -- { import = "astrocommunity.colorscheme.rose-pine" },
+  -- { import = "astrocommunity.colorscheme.poimandres-nvim" },
+  -- { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
   { import = "astrocommunity.scrolling.mini-animate" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.git.git-blame-nvim" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.comment.ts-comments-nvim" },
+  { import = "astrocommunity.game.leetcode-nvim" },
   -- { import = "astrocommunity.indent.indent-rainbowline" },
   -- { import = "astrocommunity.indent.mini-indentscope" },
   -- { import = "astrocommunity.file-explorer.fyler-nvim" },
