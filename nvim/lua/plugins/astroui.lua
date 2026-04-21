@@ -10,21 +10,31 @@ return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
-    -- Enable transparency for the main editor windows
-    colorscheme = "vscode",
+    -- change colorscheme
+    colorscheme = "astrodark",
+    transparent = true,
+    -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
-      -- use a function override to set highlights for all themes
-      global = function(highlights)
-        highlights.Normal = { bg = "NONE" }
-        highlights.NormalNC = { bg = "NONE" }
-        highlights.CursorLine = { bg = "NONE" }
-        highlights.CursorLineNr = { bg = "NONE" }
-        highlights.StatusLine = { bg = "NONE" }
-        highlights.StatusLineNC = { bg = "NONE" }
-        highlights.SignColumn = { bg = "NONE" }
-        highlights.FoldColumn = { bg = "NONE" }
-        return highlights
-      end,
+      init = { -- this table overrides highlights in all themes
+        -- Normal = { bg = "#000000" },
+      },
+      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
+        -- Normal = { bg = "#000000" },
+      },
+    },
+    -- Icons can be configured throughout the interface
+    icons = {
+      -- configure the loading of the lsp in the status line
+      LSPLoading1 = "⠋",
+      LSPLoading2 = "⠙",
+      LSPLoading3 = "⠹",
+      LSPLoading4 = "⠸",
+      LSPLoading5 = "⠼",
+      LSPLoading6 = "⠴",
+      LSPLoading7 = "⠦",
+      LSPLoading8 = "⠧",
+      LSPLoading9 = "⠇",
+      LSPLoading10 = "⠏",
     },
   },
 }
