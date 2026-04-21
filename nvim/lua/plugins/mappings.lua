@@ -23,13 +23,13 @@ return {
           ["C"] = { '"_C', desc = "Change to end of line without yanking" },
           ["s"] = { '"_s', desc = "Substitute char without yanking" },
 
-          -- keep yank versions
-          ["yd"] = { "d", desc = "Delete with yank" },
-          ["yc"] = { "c", desc = "Change with yank" },
-          ["yx"] = { "x", desc = "Delete char with yank" },
-          ["yD"] = { "D", desc = "Delete to end of line with yank" },
-          ["yC"] = { "C", desc = "Change to end of line with yank" },
-          ["ys"] = { "s", desc = "Substitute char with yank" },
+          -- keep yank versions (leader-prefixed to avoid nvim-surround conflicts)
+          ["<Leader>yd"] = { "d", desc = "Delete with yank" },
+          ["<Leader>yc"] = { "c", desc = "Change with yank" },
+          ["<Leader>yx"] = { "x", desc = "Delete char with yank" },
+          ["<Leader>yD"] = { "D", desc = "Delete to end of line with yank" },
+          ["<Leader>yC"] = { "C", desc = "Change to end of line with yank" },
+          ["<Leader>ys"] = { "s", desc = "Substitute char with yank" },
 
           -- undo / redo remaps
           ["U"] = { "u", desc = "Undo last change" },
@@ -55,13 +55,12 @@ return {
           ["C"] = { '"_C', desc = "Change to end of line without yanking" },
           ["s"] = { '"_s', desc = "Substitute char without yanking" },
 
-          -- keep yank versions
-          ["yd"] = { "d", desc = "Delete with yank" },
-          ["yc"] = { "c", desc = "Change with yank" },
-          ["yx"] = { "x", desc = "Delete char with yank" },
-          ["yD"] = { "D", desc = "Delete to end of line with yank" },
-          ["yC"] = { "C", desc = "Change to end of line with yank" },
-          -- ["ys"] = { "s", desc = "Substitute char with yank" },
+          -- keep yank versions (leader-prefixed to avoid nvim-surround conflicts)
+          ["<Leader>yd"] = { "d", desc = "Delete with yank" },
+          ["<Leader>yc"] = { "c", desc = "Change with yank" },
+          ["<Leader>yx"] = { "x", desc = "Delete char with yank" },
+          ["<Leader>yD"] = { "D", desc = "Delete to end of line with yank" },
+          ["<Leader>yC"] = { "C", desc = "Change to end of line with yank" },
         },
       },
     },
