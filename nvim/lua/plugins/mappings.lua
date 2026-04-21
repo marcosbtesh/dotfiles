@@ -15,21 +15,8 @@ return {
           ["<A-S-Up>"] = { ":t.-1<CR>==", desc = "Copy line up" },
           ["<A-S-Down>"] = { ":t.<CR>==", desc = "Copy line down" },
 
-          -- delete/change without yanking
-          ["d"] = { '"_d', desc = "Delete without yanking" },
-          ["c"] = { '"_c', desc = "Change without yanking" },
-          ["x"] = { '"_x', desc = "Delete char without yanking" },
-          ["D"] = { '"_D', desc = "Delete to end of line without yanking" },
-          ["C"] = { '"_C', desc = "Change to end of line without yanking" },
-          ["s"] = { '"_s', desc = "Substitute char without yanking" },
-
-          -- keep yank versions (leader-prefixed to avoid nvim-surround conflicts)
-          ["<Leader>yd"] = { "d", desc = "Delete with yank" },
-          ["<Leader>yc"] = { "c", desc = "Change with yank" },
-          ["<Leader>yx"] = { "x", desc = "Delete char with yank" },
-          ["<Leader>yD"] = { "D", desc = "Delete to end of line with yank" },
-          ["<Leader>yC"] = { "C", desc = "Change to end of line with yank" },
-          ["<Leader>ys"] = { "s", desc = "Substitute char with yank" },
+          -- paste from last yank (register 0), unaffected by recent deletes
+          ["<Leader>P"] = { '"0p', desc = "Paste last yank after" },
 
           -- undo / redo remaps
           ["U"] = { "u", desc = "Undo last change" },
@@ -47,20 +34,8 @@ return {
           ["<A-S-Up>"] = { ":t'<-1<CR>gv", desc = "Copy selection up" },
           ["<A-S-Down>"] = { ":t'>+1<CR>gv", desc = "Copy selection down" },
 
-          -- delete/change without yanking
-          ["d"] = { '"_d', desc = "Delete without yanking" },
-          ["c"] = { '"_c', desc = "Change without yanking" },
-          ["x"] = { '"_x', desc = "Delete char without yanking" },
-          ["D"] = { '"_D', desc = "Delete to end of line without yanking" },
-          ["C"] = { '"_C', desc = "Change to end of line without yanking" },
-          ["s"] = { '"_s', desc = "Substitute char without yanking" },
-
-          -- keep yank versions (leader-prefixed to avoid nvim-surround conflicts)
-          ["<Leader>yd"] = { "d", desc = "Delete with yank" },
-          ["<Leader>yc"] = { "c", desc = "Change with yank" },
-          ["<Leader>yx"] = { "x", desc = "Delete char with yank" },
-          ["<Leader>yD"] = { "D", desc = "Delete to end of line with yank" },
-          ["<Leader>yC"] = { "C", desc = "Change to end of line with yank" },
+          -- paste over selection without yanking the replaced text
+          ["<Leader>p"] = { '"_dP', desc = "Paste without yanking" },
         },
       },
     },
