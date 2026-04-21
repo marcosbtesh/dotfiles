@@ -33,6 +33,7 @@ return {
   { import = "astrocommunity.git.git-blame-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.comment.ts-comments-nvim" },
+  { import = "astrocommunity.game.leetcode-nvim" },
   -- { import = "astrocommunity.indent.indent-rainbowline" },
   -- { import = "astrocommunity.indent.mini-indentscope" },
   -- { import = "astrocommunity.file-explorer.fyler-nvim" },
