@@ -6,3 +6,4 @@
 vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.timeoutlen = 500
+require "user.autocmds"

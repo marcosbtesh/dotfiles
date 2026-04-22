@@ -22,6 +22,9 @@ config.window_padding = {
 	top = 2,
 	bottom = 0,
 }
+
+config.swallow_mouse_click_on_window_focus = true
+
 config.tab_max_width = 40
 config.scrollback_lines = 10000
 config.inactive_pane_hsb = {
