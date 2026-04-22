@@ -22,6 +22,7 @@ return {
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },
+  { import = "astrocommunity.search.nvim-spectre" },
   -- { import = "astrocommunity.note-taking.obsidian-nvim" },
   -- { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.completion.copilot-cmp" },

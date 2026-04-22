@@ -45,6 +45,44 @@ return {
     -- client specific configuration can also go in `lsp/` in your configuration root (see `:h lsp-config`)
     config = {
       -- ["*"] = { capabilities = {} }, -- modify default LSP client settings such as capabilities
+
+      -- typescript-language-server: bump TSServer heap so it survives large monorepos
+      -- (default ~3GB; Remolino/remo_whatsapp_manager needs more due to the 8MB Prisma
+      -- generated .d.ts + circular @app/web ↔ @chatbot/api barrel). Also disable
+      -- package.json auto-import scanning, which is expensive in big workspaces.
+      ts_ls = {
+        init_options = {
+          maxTsServerMemory = 8192,
+          preferences = {
+            includePackageJsonAutoImports = "off",
+          },
+        },
+      },
+
+      -- vtsls: same intent, using the VS Code settings schema it consumes.
+      vtsls = {
+        settings = {
+          typescript = {
+            tsserver = { maxTsServerMemory = 8192 },
+            preferences = { includePackageJsonAutoImports = "off" },
+          },
+          javascript = {
+            preferences = { includePackageJsonAutoImports = "off" },
+          },
+        },
+      },
+
+      -- tailwindcss-language-server: only attach in workspaces that actually have
+      -- a tailwind config. Prevents it from trying to init packages with no
+      -- tailwind (e.g. packages/api), which crashes on Node ERR_INTERNAL_ASSERTION.
+      tailwindcss = {
+        root_markers = {
+          "tailwind.config.js",
+          "tailwind.config.ts",
+          "tailwind.config.cjs",
+          "tailwind.config.mjs",
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {
