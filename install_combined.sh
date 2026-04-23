@@ -53,6 +53,7 @@ if [[ "$OS" == "macos" ]]; then
     mkdir -p ~/.config/nvim
     mkdir -p ~/scripts
     mkdir -p ~/.config/yazi
+    mkdir -p ~/.config/lazygit
 
     # Fix script permissions
     find ./scripts -name "*.sh" -exec chmod +x {} +
@@ -67,6 +68,7 @@ if [[ "$OS" == "macos" ]]; then
     stow -t ~/scripts scripts
     stow -t ~/.config/tmux tmux
     stow -t ~/.config/yazi yazi
+    stow -t ~/.config/lazygit lazygit
 
     # Unlock git-crypt (requires GPG key to be imported first)
     if command -v git-crypt &> /dev/null; then
@@ -134,6 +136,7 @@ elif [[ "$OS" == "manjaro" ]]; then
     mkdir -p ~/.config/tmux
     mkdir -p ~/.config/yazi
     mkdir -p ~/.config/nvim
+    mkdir -p ~/.config/lazygit
     mkdir -p ~/scripts
     mkdir -p ~/.nvm
 
@@ -152,6 +155,7 @@ elif [[ "$OS" == "manjaro" ]]; then
     stow -t ~/scripts scripts
     stow -t ~/.config/tmux tmux
     stow -t ~/.config/yazi yazi
+    stow -t ~/.config/lazygit lazygit
 
     # Unlock git-crypt
     if command -v git-crypt &> /dev/null; then
