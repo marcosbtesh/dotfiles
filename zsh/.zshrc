@@ -217,3 +217,6 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+
+
+alias gpg-suite='/usr/local/MacGPG2/bin/gpg'
