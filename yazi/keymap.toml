@@ -12,3 +12,8 @@ desc = "Email using aerc"
 on   = [ "t", "t" ]
 run  = "plugin smart-tab"
 desc = "Create a tab and enter the hovered directory"
+
+[[mgr.prepend_keymap]]
+on = [ ".", "s" ]
+run  = "plugin what-size"
+desc = "Calc size of selection or cwd" 
