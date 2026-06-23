@@ -1,4 +1,4 @@
 [mgr]
-show_hidden = false # true
+show_hidden = true # true
 linemode = "size_and_mtime"
 

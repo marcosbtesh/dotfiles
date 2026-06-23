@@ -26,6 +26,7 @@ return {
   -- { import = "astrocommunity.note-taking.obsidian-nvim" },
   -- { import = "astrocommunity.motion.nvim-surround" },
   -- { import = "astrocommunity.completion.copilot-cmp" },
+  { import = "astrocommunity.completion.nvim-cmp" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   -- { import = "astrocommunity.colorscheme.vscode-nvim" },
   { import = "astrocommunity.colorscheme.rose-pine" },
