@@ -34,10 +34,16 @@ if [[ "$OS" == "macos" ]]; then
         eza tmuxp ripgrep w3m browsh newsboat aerc \
         calcurse ltex-ls pinentry-mac git-crypt \
         lazygit yazi ffmpeg-full sevenzip jq poppler \
-        fd resvg imagemagick-full caddy cloudflared yt-dlp pandoc glow
+        fd resvg imagemagick-full caddy cloudflared yt-dlp pandoc glow \
+        chafa
 
     brew install --cask wezterm
     brew install --cask font-symbols-only-nerd-font
+    # Headless browser used by aerc's html-preview filter to render HTML email
+    # to an image. Skips install if Google Chrome or Brave is already present.
+    if [ ! -d "/Applications/Google Chrome.app" ] && [ ! -d "/Applications/Brave Browser.app" ]; then
+        brew install --cask google-chrome
+    fi
 
     # GPG pinentry
     mkdir -p ~/.gnupg
@@ -105,7 +111,8 @@ elif [[ "$OS" == "manjaro" ]]; then
         wezterm nvm lazygit git-crypt \
         calcurse jq fd imagemagick \
         zsh zsh-autosuggestions zsh-syntax-highlighting \
-        aerc caddy cloudflared yt-dlp pandoc glow
+        aerc caddy cloudflared yt-dlp pandoc glow \
+        chafa chromium
 
     echo "Installing AUR packages..."
     yay -S --needed --noconfirm \

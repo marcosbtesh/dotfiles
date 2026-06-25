@@ -1,0 +1,314 @@
+#!/bin/sh
+# html-preview — aerc text/html filter: browser-grade HTML email rendering.
+#
+# WHAT IT DOES
+#   Renders the text/html MIME part of an email the way a real browser would
+#   (full CSS, web fonts, gradients, tables, background images) by screenshotting
+#   it with a headless Chromium/Chrome, then displays that PNG *inline* in the
+#   terminal using the sixel graphics protocol. If anything required for that is
+#   missing, it degrades gracefully — external image viewer, then a clean text
+#   render (w3m / pandoc) — so an email NEVER just breaks.
+#
+# WHY SIXEL (and not kitty / iTerm2 imgcat)
+#   aerc runs a `!`-prefixed filter as the main process inside its *embedded*
+#   terminal. aerc's own docs give `text/html = ! html-unsafe -sixel` as a
+#   working example, i.e. the embedded terminal forwards **sixel** to the host
+#   terminal (WezTerm). The kitty and iTerm2 protocols are NOT documented to
+#   pass through aerc's embedded terminal, so we target sixel specifically.
+#
+# HOW IT'S WIRED
+#   In aerc.conf:   text/html=! html-preview
+#   aerc prepends ${XDG_CONFIG_HOME:-~/.config}/aerc/filters to $PATH, and this
+#   script lives there (via GNU Stow), so the bare name resolves.
+#
+# CONFIGURATION (environment variables — all optional)
+#   AERC_HTML_MODE     auto | image | external | text   (default: auto)
+#                        auto     pick image if possible, else text
+#                        image    force inline sixel (falls back to text on error)
+#                        external render PNG, open in OS viewer, show text in pane
+#                        text     skip rendering, w3m/pandoc text only
+#   AERC_HTML_SAFE     1 = block ALL remote content (offline render; no tracking
+#                        pixels / remote images). 0 = load remote resources for
+#                        full browser fidelity. DEFAULT BELOW (SAFE_DEFAULT).
+#                        NOTE: with SAFE=0, opening an email fetches its remote
+#                        assets, which can signal "email opened" to the sender.
+#   AERC_BROWSER       explicit path to a Chromium/Chrome/Brave/Edge binary
+#   AERC_HTML_WIDTH    render canvas width in px            (default: 1024)
+#   AERC_HTML_MAXHEIGHT render canvas height in px          (default: 4000)
+#   AERC_HTML_TIMEOUT  max seconds to wait for a render     (default: 30)
+#   AERC_HTML_CELLPX   approx px per terminal cell, for sizing (default: 8)
+#   AERC_FORCE_GRAPHICS 1 = assume the terminal can show sixel (skip detection)
+#
+# DEPENDENCIES
+#   Required for image mode : a Chromium-family browser + ImageMagick (or chafa)
+#   Better quality (optional): chafa  (nicer scaling + auto cell-fit)
+#   Text fallback           : w3m (preferred) or pandoc
+#   Cross-platform: macOS (Apple Silicon app bundles) and Linux (PATH binaries).
+#
+# This script is POSIX sh and self-contained. No bashisms.
+
+set -u
+
+# ── Tunables / defaults ─────────────────────────────────────────────────────
+SAFE_DEFAULT=0          # 0 = load remote assets (browser fidelity); 1 = offline
+MODE="${AERC_HTML_MODE:-auto}"
+SAFE="${AERC_HTML_SAFE:-$SAFE_DEFAULT}"
+CANVAS_W="${AERC_HTML_WIDTH:-1024}"
+CANVAS_H="${AERC_HTML_MAXHEIGHT:-4000}"
+RENDER_TIMEOUT="${AERC_HTML_TIMEOUT:-30}"
+CELLPX="${AERC_HTML_CELLPX:-8}"
+
+# ── Temp files + guaranteed cleanup ─────────────────────────────────────────
+TMPDIR_BASE="${TMPDIR:-/tmp}"
+WORK="$(mktemp -d "${TMPDIR_BASE%/}/aerc-html.XXXXXX")" || exit 1
+HTML="$WORK/mail.html"
+PNG="$WORK/mail.png"
+PROFILE="$WORK/chrome-profile"   # throwaway Chrome profile (never touches yours)
+CHROME_PID=""
+
+cleanup() {
+	# Kill any lingering headless Chrome we spawned (it doesn't always self-exit).
+	[ -n "$CHROME_PID" ] && kill "$CHROME_PID" 2>/dev/null
+	rm -rf "$WORK" 2>/dev/null
+}
+trap cleanup EXIT INT TERM
+
+# aerc pipes the HTML part on stdin. Slurp it once so we can feed it to both the
+# browser and the text fallback (stdin can only be read once).
+cat > "$HTML"
+
+# ── Helpers ─────────────────────────────────────────────────────────────────
+have() { command -v "$1" >/dev/null 2>&1; }
+
+term_cols() {
+	# changelog #232: older aerc reported 80 always; fixed in current versions.
+	c="$(tput cols 2>/dev/null)" || c=""
+	[ -n "${c:-}" ] || c="${COLUMNS:-100}"
+	[ "$c" -gt 0 ] 2>/dev/null || c=100
+	printf '%s' "$c"
+}
+
+# Is the host terminal able to display sixel? We're inside aerc's embedded
+# terminal, but env vars are inherited from the outer terminal (WezTerm/kitty).
+graphics_capable() {
+	[ "${AERC_FORCE_GRAPHICS:-0}" = "1" ] && return 0
+	[ -t 1 ] || return 1                       # stdout must be a TTY
+	[ -n "${WEZTERM_PANE:-}" ] && return 0      # WezTerm
+	[ "${TERM_PROGRAM:-}" = "WezTerm" ] && return 0
+	[ -n "${KITTY_WINDOW_ID:-}" ] && return 0   # kitty (sixel since 0.28)
+	case "${TERM:-}" in
+		*kitty*|*foot*|*mlterm*|*contour*|*wezterm*|*sixel*|*st-*) return 0 ;;
+	esac
+	case "${TERM_PROGRAM:-}" in
+		WezTerm|contour|foot|mlterm) return 0 ;;
+	esac
+	return 1
+}
+
+# Locate a Chromium-family browser across macOS and Linux.
+find_browser() {
+	if [ -n "${AERC_BROWSER:-}" ] && [ -x "${AERC_BROWSER:-}" ]; then
+		printf '%s' "$AERC_BROWSER"; return 0
+	fi
+	# Binaries on $PATH (Linux, or symlinked on macOS).
+	for b in chromium chromium-browser google-chrome google-chrome-stable \
+	         brave brave-browser microsoft-edge microsoft-edge-stable thorium-browser; do
+		if have "$b"; then command -v "$b"; return 0; fi
+	done
+	# macOS application bundles.
+	for p in \
+		"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+		"/Applications/Chromium.app/Contents/MacOS/Chromium" \
+		"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" \
+		"/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" \
+		"/Applications/Thorium.app/Contents/MacOS/Thorium"; do
+		[ -x "$p" ] && { printf '%s' "$p"; return 0; }
+	done
+	return 1
+}
+
+# Render $HTML -> $PNG with headless Chrome. Returns 0 on a usable PNG.
+# Strategy: Chrome on recent versions won't reliably self-exit after a
+# --screenshot, so we run it in the background and poll for the output file to
+# appear and stabilise, then kill it. Fast (~3-4s) and hang-proof.
+render_png() {
+	browser="$1"
+	rm -rf "$PROFILE"; mkdir -p "$PROFILE"
+
+	# Build the argv with `set --` so the space-containing offline rule survives
+	# as ONE argument (and globbing never touches the '*'). Same technique aerc's
+	# own bundled `html` filter uses.
+	set -- \
+		--headless --disable-gpu --no-sandbox --hide-scrollbars \
+		--no-first-run --no-default-browser-check --disable-extensions \
+		--disable-background-networking --disable-sync \
+		--disable-component-update --disable-default-apps --mute-audio \
+		--user-data-dir="$PROFILE" \
+		--default-background-color=FFFFFFFF \
+		--window-size="${CANVAS_W},${CANVAS_H}"
+
+	# Privacy/offline switch: blackhole DNS makes remote fetches fail fast
+	# (unlike a dead proxy, which makes Chrome hang on shutdown). The page DOM
+	# and CSS still render; only network-loaded assets are skipped.
+	[ "$SAFE" = "1" ] && set -- "$@" --host-resolver-rules="MAP * 0.0.0.0"
+
+	set -- "$@" --screenshot="$PNG" "$HTML"
+
+	"$browser" "$@" >/dev/null 2>&1 &
+	CHROME_PID=$!
+
+	# Poll: wait until the PNG exists and its size has stopped changing.
+	max_ticks=$(( RENDER_TIMEOUT * 3 ))   # ticks of ~0.3s
+	i=0; s1=""; s2=""
+	while [ "$i" -lt "$max_ticks" ]; do
+		if [ -s "$PNG" ]; then
+			s1=$(wc -c < "$PNG" 2>/dev/null)
+			sleep 0.3
+			s2=$(wc -c < "$PNG" 2>/dev/null)
+			[ "$s1" = "$s2" ] && break
+		else
+			sleep 0.3
+		fi
+		i=$(( i + 1 ))
+	done
+
+	kill "$CHROME_PID" 2>/dev/null; wait "$CHROME_PID" 2>/dev/null
+	CHROME_PID=""
+
+	[ -s "$PNG" ] || return 1
+
+	# Trim the tall white canvas down to the actual email content.
+	if have magick; then
+		magick "$PNG" -trim +repage "$PNG.trim" 2>/dev/null && mv "$PNG.trim" "$PNG"
+		dims=$(magick identify -format '%w %h' "$PNG" 2>/dev/null)
+	elif have convert; then
+		convert "$PNG" -trim +repage "$PNG.trim" 2>/dev/null && mv "$PNG.trim" "$PNG"
+		dims=$(identify -format '%w %h' "$PNG" 2>/dev/null)
+	else
+		dims="$CANVAS_W 1"
+	fi
+
+	# Reject empty / degenerate renders (blank html part) -> caller goes to text.
+	w=${dims%% *}; h=${dims##* }
+	[ "${w:-0}" -ge 8 ] 2>/dev/null && [ "${h:-0}" -ge 8 ] 2>/dev/null || return 1
+	return 0
+}
+
+# Emit $PNG as sixel, sized to the terminal width. Returns non-zero if no
+# emitter is available so the caller can fall back.
+emit_sixel() {
+	cols=$(term_cols)
+	if have chafa; then
+		# chafa fits to cells and dithers nicely; force sixel for aerc passthrough.
+		chafa -f sixels -s "$cols" --polite on "$PNG" && return 0
+	fi
+	px=$(( cols * CELLPX ))
+	if have magick; then
+		magick "$PNG" -resize "${px}x>" sixel:- && return 0
+	elif have convert; then
+		convert "$PNG" -resize "${px}x>" sixel:- && return 0
+	elif have img2sixel; then
+		img2sixel -w "$px" "$PNG" && return 0
+	fi
+	return 1
+}
+
+# Open $PNG in the OS image viewer (external mode / 'e' key).
+open_external() {
+	if [ "$(uname -s)" = "Darwin" ]; then
+		open "$PNG" >/dev/null 2>&1
+	elif have xdg-open; then
+		xdg-open "$PNG" >/dev/null 2>&1 &
+	else
+		return 1
+	fi
+}
+
+# Clean text render. Order: aerc's own bundled `html` filter (maintained, does
+# safe-w3m with interactive paging) -> w3m -> pandoc -> naive tag strip.
+render_text() {
+	cols=$(term_cols)
+	# aerc's bundled html filter is on the prepended filter $PATH (different name,
+	# so no recursion). It handles TTY paging and network isolation for us.
+	if command -v html >/dev/null 2>&1 && [ "$(command -v html)" != "$0" ]; then
+		html < "$HTML" && return 0
+	fi
+	if have w3m; then
+		if [ -t 1 ]; then
+			w3m -T text/html -I UTF-8 -O UTF-8 -o display_link=true \
+			    -o display_borders=true < "$HTML" && return 0
+		else
+			w3m -T text/html -I UTF-8 -O UTF-8 -dump -cols "$cols" < "$HTML" && return 0
+		fi
+	fi
+	if have pandoc; then
+		if [ -t 1 ] && have less; then
+			pandoc -f html -t plain "$HTML" 2>/dev/null | less -R && return 0
+		else
+			pandoc -f html -t plain "$HTML" 2>/dev/null && return 0
+		fi
+	fi
+	# Last resort: strip tags so the user at least sees the words.
+	sed -e 's/<[^>]*>//g' "$HTML"
+}
+
+# Interactive footer shown after an inline image: keeps the sixel on screen
+# (aerc may wipe it once this process exits) and offers quick actions.
+image_footer() {
+	[ -t 0 ] || { :; return 0; }   # no controlling input -> just return
+	printf '\n\033[2m── q close · e open in browser · t text view ──\033[0m'
+	old=$(stty -g 2>/dev/null) || { printf '\n'; return 0; }
+	stty -echo -icanon min 1 time 0 2>/dev/null
+	key=$(dd bs=1 count=1 2>/dev/null)
+	stty "$old" 2>/dev/null
+	printf '\n'
+	case "$key" in
+		e|E) open_external ;;
+		t|T) printf '\033[2J\033[H'; render_text ;;
+		*)   : ;;
+	esac
+}
+
+# ── Decide mode + run ───────────────────────────────────────────────────────
+case "$MODE" in
+	text)
+		render_text
+		;;
+	external)
+		browser=$(find_browser) || { render_text; exit 0; }
+		if render_png "$browser"; then
+			if open_external; then
+				printf 'Opened rendered email in external viewer.\n\n'
+			else
+				printf 'No external viewer found; showing text.\n\n'
+			fi
+			render_text
+		else
+			render_text
+		fi
+		;;
+	image)
+		browser=$(find_browser) || { render_text; exit 0; }
+		if render_png "$browser" && emit_sixel; then
+			image_footer
+		else
+			render_text
+		fi
+		;;
+	auto|*)
+		# Inline image only if the terminal can show it AND we have the tools;
+		# otherwise a clean text render.
+		if graphics_capable && browser=$(find_browser) \
+			&& { have chafa || have magick || have convert || have img2sixel; }; then
+			if render_png "$browser" && emit_sixel; then
+				image_footer
+			else
+				render_text
+			fi
+		else
+			render_text
+		fi
+		;;
+esac
+
+exit 0
