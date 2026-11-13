@@ -158,6 +158,16 @@ alias rss='newsboat'
 # PHP CONFIGURATION
 alias php74='/opt/homebrew/opt/php@7.4/bin/php'
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+#export GPG_TTY=$(tty)
+
+export MANPAGER='nvim +Man!'
 export PATH="$HOME/_dev/flutter/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 
